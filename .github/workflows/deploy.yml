@@ -28,8 +28,9 @@ jobs:
     needs:
       - create-install-scripts
     steps:
+      - uses: actions/checkout@v4
       - uses: actions/download-artifact@v4
         with:
           name: install-scripts
           path: dist/
-      - run: tree .
+      - run: sh dist/amd64.sh

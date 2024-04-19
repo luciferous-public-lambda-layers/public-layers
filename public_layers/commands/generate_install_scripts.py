@@ -32,7 +32,7 @@ def create_dist():
 def convert(option: BuildOptions) -> str:
     return " ".join(
         [
-            "build.sh",
+            "./build.sh",
             f"--name {option.name}",
             f"--arch {option.arch}",
             f"--runtime-version {option.runtime_version}",
