@@ -32,4 +32,4 @@ jobs:
         with:
           name: install-scripts
           path: dist/
-      - run: tree . | sort
+      - run: tree .
