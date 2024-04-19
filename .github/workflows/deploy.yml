@@ -40,7 +40,7 @@ jobs:
           path: layers/
 
   install-arm64:
-    runs-on: ubuntu-latest
+    runs-on: buildjet-2vcpu-ubuntu-2204-arm
     needs:
       - create-install-scripts
     steps:
