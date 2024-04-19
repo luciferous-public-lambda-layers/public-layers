@@ -1,0 +1,29 @@
+[tool.poetry]
+name = "public-layers"
+version = "0.1.0"
+description = ""
+authors = ["sinofseven <em.s.00001@gmail.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.12"
+aws-cdk-lib = "2.136.0"
+constructs = "10.3.0"
+jsonschema = "4.21.1"
+
+
+[tool.poetry.group.dev.dependencies]
+isort = "^5.13.2"
+black = "^24.3.0"
+flake8 = "^7.0.0"
+pytest = "^8.1.1"
+
+[tool.poetry.scripts]
+generate-install-scripts = "public_layers.commands.generate_install_scripts:main"
+
+[tool.isort]
+profile = "black"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"

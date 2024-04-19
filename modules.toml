@@ -1,0 +1,11 @@
+[[module]]
+name = "zstd"
+version = "1.5.5.1"
+is_individual_architectures = true
+is_individual_runtimes = true
+
+[[module]]
+name = "beautifulsoup4"
+version = "4.12.3"
+is_individual_architectures = false
+is_individual_runtimes = false

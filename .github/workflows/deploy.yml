@@ -1,0 +1,35 @@
+on:
+  push:
+    branches:
+      - master
+
+permissions:
+  id-token: write
+  contents: read
+
+jobs:
+  create-install-scripts:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: 3.12.1
+      - run: pip install poetry
+      - run: poetry install --only main
+      - run: generate-install-scripts
+      - uses: actions/upload-artifact@v4
+        with:
+          name: install-scripts
+          path: dist/
+
+  install-amd64:
+    runs-on: ubuntu-latest
+    needs:
+      - create-install-scripts
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          name: install-scripts
+          path: dist/
+      - run: tree . | sort

@@ -1,0 +1,43 @@
+{
+  "$id": "https://github.com/luciferous-public-lambda-layers/public-layers/blob/master/schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "LuciferousPublicLayersConfig",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["module"],
+  "properties": {
+    "module": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["name", "version", "is_individual_runtimes", "is_individual_architectures"],
+        "properties": {
+          "name": {
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9-_]+$"
+          },
+          "layer_name": {
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9-_]+$"
+          },
+          "version": {
+            "type": "string",
+            "minLength": 1
+          },
+          "extras": {
+            "type": "array",
+            "minItems": 1,
+            "items": {
+              "type": "string",
+              "minLength": 1
+            }
+          },
+          "is_individual_runtimes": {"type": "boolean"},
+          "is_individual_architectures": {"type": "boolean"}
+        }
+      }
+    }
+  }
+}
