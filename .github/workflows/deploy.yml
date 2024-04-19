@@ -34,3 +34,26 @@ jobs:
           name: install-scripts
           path: dist/
       - run: sh dist/amd64.sh
+      - uses: actions/upload-artifact@v4
+        with:
+          name: layers-amd64
+          path: layers/
+
+  install-arm64:
+    runs-on: ubuntu-latest
+    needs:
+      - create-install-scripts
+    steps:
+      - uses: actions/checkout@v4
+      - uses: docker/setup-qemu-action@v3
+        with:
+          platforms: linux/arm64
+      - uses: actions/download-artifact@v4
+        with:
+          name: install-scripts
+          path: dist/
+      - run: sh dist/arm64.sh
+      - uses: actions/upload-artifact@v4
+        with:
+          name: layers-arm64
+          path: layers/
