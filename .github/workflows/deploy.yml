@@ -40,7 +40,7 @@ jobs:
           path: layers/
 
   install-arm64:
-    runs-on: buildjet-4vcpu-ubuntu-2204-arm
+    runs-on: ubuntu-latest
     needs:
       - create-install-scripts
     steps:
@@ -57,3 +57,35 @@ jobs:
         with:
           name: layers-arm64
           path: layers/
+
+  cdk-synth:
+    runs-on: ubuntu-latest
+    needs:
+      - install-amd64
+      - install-arm64
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/download-artifact@v4
+        with:
+          name: layers-amd64
+          path: layers/
+      - uses: actions/download-artifact@v4
+        with:
+          name: layers-arm64
+          path: layers/
+      - uses: actions/setup-python@v5
+        with:
+          python-version: 3.12.1
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20.12.1
+      - run: pip install poetry
+      - run: poetry install --only main
+      - run: npm install
+      - run: poetry run npx cdk synth
+      - uses: actions/upload-artifact@v4
+        with:
+          name: cdk.out
+          path: cdk.out/
+
+

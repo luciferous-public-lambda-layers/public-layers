@@ -2,7 +2,7 @@ from dataclasses import dataclass
 from os import makedirs
 from shutil import rmtree
 
-from public_layers.utils.models import Config, BuildOptions
+from public_layers.utils.models import BuildOptions, Config
 from public_layers.utils.variables import ARCHITECTURES
 
 DIR_DIST = "dist"

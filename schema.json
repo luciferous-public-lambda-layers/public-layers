@@ -12,7 +12,7 @@
       "items": {
         "type": "object",
         "additionalProperties": false,
-        "required": ["name", "version", "is_individual_runtimes", "is_individual_architectures"],
+        "required": ["name", "layer_name", "version", "is_individual_runtimes", "is_individual_architectures"],
         "properties": {
           "name": {
             "type": "string",
