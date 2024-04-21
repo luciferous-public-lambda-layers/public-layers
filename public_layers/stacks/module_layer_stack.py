@@ -50,7 +50,7 @@ class ModuleLayerStack(NestedStack):
                     if module.is_individual_runtimes
                     else all_runtimes
                 ),
-                description="",
+                description=f"LuciferousPublicLayer: name={module.name}, layer_name={module.layer_name}, module={build_option.module}",
                 layer_version_name=build_option.name,
                 removal_policy=RemovalPolicy.RETAIN,
             )
