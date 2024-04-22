@@ -9,6 +9,7 @@ from jsonschema import validate
 from public_layers.utils.variables import MAPPING_ARCHITECTURES, RUNTIMES
 
 pattern_non_alpha_numeric: Pattern = compile(r"[^0-9a-zA-Z]")
+pattern_layer_name: Pattern = compile(r"[^0-9a-zA-Z-_]")
 
 
 @dataclass(frozen=True)
@@ -44,7 +45,7 @@ class Module:
         if pattern == (False, False):
             result.append(
                 BuildOptions(
-                    name=f"{prefix}-{self.layer_name}",
+                    name=pattern_layer_name.sub("", f"{prefix}-{self.layer_name}"),
                     arch=all_architectures[0],
                     runtime_version=RUNTIMES[0],
                     module=install_target,
@@ -56,7 +57,9 @@ class Module:
         elif pattern == (True, False):
             result += [
                 BuildOptions(
-                    name=f"{prefix}-{self.layer_name}-Python{runtime}",
+                    name=pattern_layer_name.sub(
+                        "", f"{prefix}-{self.layer_name}-Python{runtime}"
+                    ),
                     arch=all_architectures[0],
                     runtime_version=runtime,
                     module=install_target,
@@ -69,7 +72,7 @@ class Module:
         elif pattern == (False, True):
             result += [
                 BuildOptions(
-                    name=f"{prefix}-{self.layer_name}-{v}",
+                    name=pattern_layer_name.sub("", f"{prefix}-{self.layer_name}-{v}"),
                     arch=k,
                     runtime_version=RUNTIMES[0],
                     module=install_target,
@@ -82,7 +85,9 @@ class Module:
         else:  # pattern == (True, True)
             result += [
                 BuildOptions(
-                    name=f"{prefix}-{self.layer_name}-Python{runtime}-{v}",
+                    name=pattern_layer_name.sub(
+                        "", f"{prefix}-{self.layer_name}-Python{runtime}-{v}"
+                    ),
                     arch=k,
                     runtime_version=runtime,
                     module=install_target,
