@@ -30,7 +30,7 @@ class ModuleLayerStack(NestedStack):
         super().__init__(scope, f"Layers{module.layer_name}")
 
         for build_option in module.convert():
-            LayerVersion(
+            layer = LayerVersion(
                 scope=self,
                 id=build_option.logical_id,
                 code=Code.from_asset(
@@ -53,4 +53,8 @@ class ModuleLayerStack(NestedStack):
                 description=f"LuciferousPublicLayer: name={module.name}, layer_name={module.layer_name}, module={build_option.module}",
                 layer_version_name=build_option.name,
                 removal_policy=RemovalPolicy.RETAIN,
+            )
+
+            layer.add_permission(
+                id=f"LayerPermission{build_option.logical_id}", account_id="*"
             )
